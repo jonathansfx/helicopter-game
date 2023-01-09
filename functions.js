@@ -185,6 +185,7 @@ function drawMainComponents() {
     ctx.font = "30px Consolas";
     ctx.fillStyle = "black";
     ctx.fillText("HELICOPTER GAME", 25, 35);
+
     ctx.fillText("DISTANCE: 0", 25, cnv.height - 15);
     ctx.fillText("BEST: 0", cnv.width - 250, cnv.height - 15);
   
