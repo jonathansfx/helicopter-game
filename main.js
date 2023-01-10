@@ -15,6 +15,7 @@ let propeller = document.createElement("audio");
 propeller.src = "sound/propeller.wav";
 let mouseIsPressed = false;
 
+
 // Global Variables (Reset)
 let state;
 let heli;

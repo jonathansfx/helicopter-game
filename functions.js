@@ -19,6 +19,7 @@ function runGame() {
     moveHeli();
     moveWalls();
     checkCollisions();
+    countDist();
 
     // DRAW
 drawGame();
@@ -39,10 +40,13 @@ function moveHeli() {
 } else if (heli.speed < -5) {
      heli.speed = -5;
 }
-
     // Move Helicopter by its speed
 heli.y += heli.speed;
-
+    
+// Apply Wall Accel
+    wall1.speed += wall1.accel;
+    wall2.speed += wall2.accel;
+    wall3.speed += wall3.accel;
 }
 
 function moveWalls() {
@@ -97,6 +101,14 @@ function checkCollisions() {
         heli.y < wall3.y + wall3.h &&
         heli.y + heli.h > wall3.y) {
             gameOver();
+
+    // Check Score and Distance
+    let dist = 0;
+    if (wall1.x < 200) {
+        dist++;
+        d += dist;
+    }
+    
 }
 }
 function gameOver() {
@@ -133,7 +145,6 @@ drawWalls();
     // HELPER FUNCTIONS
     function reset() {
         state = "start";
-        state = "start";
         heli = {
         x: 200, 
         y: 250,
@@ -147,6 +158,8 @@ drawWalls();
         y: Math.random() * 300 + 100, 
         w: 50,
         h: 100,
+        speed: 0,
+        accel: 0.5
         };
 
         wall2 = {
@@ -154,6 +167,8 @@ drawWalls();
         y: Math.random() * 300 + 100, 
         w: 50,
         h: 100,
+        speed: 0,
+        accel: 0.5
         };
 
         wall3 = {
@@ -161,8 +176,11 @@ drawWalls();
         y: Math.random() * 300 + 100, 
         w: 50,
         h: 100,
+        speed: 0,
+        accel: 0.5
     };
-    }
+
+        }
 
     function drawWalls() {
     ctx.fillStyle = "green";
@@ -170,6 +188,7 @@ drawWalls();
     ctx.fillRect(wall2.x, wall2.y, wall2.w, wall2.h);
     ctx.fillRect(wall3.x, wall3.y, wall3.w, wall3.h);
 }
+
 
 function drawMainComponents() {
     // Background
@@ -186,7 +205,7 @@ function drawMainComponents() {
     ctx.fillStyle = "black";
     ctx.fillText("HELICOPTER GAME", 25, 35);
 
-    ctx.fillText("DISTANCE: 0", 25, cnv.height - 15);
+    ctx.fillText("DISTANCE: " + d + "", 25, cnv.height - 15);
     ctx.fillText("BEST: 0", cnv.width - 250, cnv.height - 15);
   
     // Helicopter
